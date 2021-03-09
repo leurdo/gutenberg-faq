@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -32,23 +32,7 @@ export default function save( props ) {
 
 	return (
 		<div { ...blockProps }>
-			<div className="card">
-				<div className="card-header" id="headingOne">
-					<div className="mb-0">
-						<button className="btn btn-link btn-block text-left bg-primary text-white" type="button" data-toggle="collapse"
-								data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							<RichText.Content value={ attributes.title } />
-						</button>
-					</div>
-				</div>
-
-				<div id="collapseOne" className="collapse" aria-labelledby="headingOne"
-					 data-parent={ '#block-' + blockId }>
-					<div className="card-body">
-						<RichText.Content value={ attributes.content } />
-					</div>
-				</div>
-			</div>
+			<InnerBlocks.Content />
 		</div>
 	);
 }

@@ -852,20 +852,108 @@ function Edit(props) {
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
     className: 'accordion'
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  var ALLOWED_BLOCKS = ['gutenberg-faq-inner'];
+  var noInnerBlocks = wp.data.select('core/block-editor').getBlocks(blockId).length === 0;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, noInnerBlocks && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Please insert panel', 'gutenberg-faq')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"], {
+    allowedBlocks: ALLOWED_BLOCKS
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/editor.scss":
+/*!*************************!*\
+  !*** ./src/editor.scss ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/gutenberg-faq-inner/gutenberg-faq-inner-edit.js":
+/*!*************************************************************!*\
+  !*** ./src/gutenberg-faq-inner/gutenberg-faq-inner-edit.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GutenbergFaqInnerEdit; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../editor.scss */ "./src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_3__);
+
+
+/**
+ * Retrieves the translation of text.
+ *
+ * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
+ */
+
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
+ */
+
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * Those files can contain any CSS code that gets applied to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+
+
+/**
+ * The edit function describes the structure of your block in the context of the
+ * editor. This represents what the editor will render when the block is used.
+ *
+ * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
+ *
+ * @return {WPElement} Element to render.
+ */
+
+function GutenbergFaqInnerEdit(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes,
+      clientId = props.clientId;
+  var innerBlockId = attributes.innerBlockId;
+
+  if (!innerBlockId) {
+    setAttributes({
+      innerBlockId: clientId
+    });
+  }
+
+  var id = 'block-' + innerBlockId;
+  var target = '#block-' + innerBlockId;
+  var heading = 'heading-' + innerBlockId;
+  var parentBlockClientId = wp.data.select('core/block-editor').getBlockParents(innerBlockId)[0];
+  var parentId = '#block-' + parentBlockClientId;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "card"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "card-header",
-    id: "headingOne"
+    id: heading
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "mb-0"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
     className: "btn btn-link btn-block text-left bg-primary text-white",
     type: "button",
     "data-toggle": "collapse",
-    "data-target": "#collapseOne",
+    "data-target": target,
     "aria-expanded": "true",
-    "aria-controls": "collapseOne"
+    "aria-controls": id
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
     value: attributes.title // Any existing content, either from the database or an attribute default
     ,
@@ -880,10 +968,10 @@ function Edit(props) {
     placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Panel title...', 'gutenberg-faq') // Display this text before any content has been added by the user
 
   })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    id: "collapseOne",
+    id: id,
     className: "collapse",
-    "aria-labelledby": "headingOne",
-    "data-parent": '#block-' + blockId
+    "aria-labelledby": heading,
+    "data-parent": parentId
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "card-body"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
@@ -895,19 +983,79 @@ function Edit(props) {
     },
     placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Panel content...', 'gutenberg-faq'),
     multiline: true
-  })))));
+  }))));
 }
 
 /***/ }),
 
-/***/ "./src/editor.scss":
-/*!*************************!*\
-  !*** ./src/editor.scss ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/gutenberg-faq-inner/gutenberg-faq-inner-save.js":
+/*!*************************************************************!*\
+  !*** ./src/gutenberg-faq-inner/gutenberg-faq-inner-save.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GutenbergFaqInnerSave; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
+ */
+
+/**
+ * The save function defines the way in which the different attributes should
+ * be combined into the final markup, which is then serialized by the block
+ * editor into `post_content`.
+ *
+ * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
+ *
+ * @return {WPElement} Element to render.
+ */
+
+function GutenbergFaqInnerSave(props) {
+  var attributes = props.attributes;
+  var innerBlockId = attributes.innerBlockId;
+  var id = 'block-' + innerBlockId;
+  var target = '#block-' + innerBlockId;
+  var heading = 'heading-' + innerBlockId;
+  var parentBlockClientId = wp.data.select('core/block-editor').getBlockParents(innerBlockId)[0];
+  var parentId = '#block-' + parentBlockClientId;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "card"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "card-header",
+    id: heading
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "mb-0"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    className: "btn btn-link btn-block text-left bg-primary text-white",
+    type: "button",
+    "data-toggle": "collapse",
+    "data-target": target,
+    "aria-expanded": "true",
+    "aria-controls": id
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["RichText"].Content, {
+    value: attributes.title
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    id: id,
+    className: "collapse",
+    "aria-labelledby": heading,
+    "data-parent": parentId
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "card-body"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["RichText"].Content, {
+    value: attributes.content
+  }))));
+}
 
 /***/ }),
 
@@ -930,6 +1078,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap_js_dist_collapse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_collapse__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./save */ "./src/save.js");
+/* harmony import */ var _gutenberg_faq_inner_gutenberg_faq_inner_edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./gutenberg-faq-inner/gutenberg-faq-inner-edit */ "./src/gutenberg-faq-inner/gutenberg-faq-inner-edit.js");
+/* harmony import */ var _gutenberg_faq_inner_gutenberg_faq_inner_save__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gutenberg-faq-inner/gutenberg-faq-inner-save */ "./src/gutenberg-faq-inner/gutenberg-faq-inner-save.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -956,6 +1106,8 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
+
+
 
 
 
@@ -1005,6 +1157,32 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('cre
   attributes: {
     blockId: {
       type: 'number'
+    }
+  },
+
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
+
+  /**
+   * @see ./save.js
+   */
+  save: _save__WEBPACK_IMPORTED_MODULE_5__["default"]
+});
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('create-block/gutenberg-faq-inner', {
+  apiVersion: 2,
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Gutenberg Faq Panel', 'gutenberg-faq'),
+  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Faq inner module', 'gutenberg-faq'),
+  parent: ['create-block/gutenberg-faq'],
+  icon: 'smiley',
+  supports: {
+    // Removes support for an HTML mode.
+    html: false
+  },
+  attributes: {
+    innerBlockId: {
+      type: 'number'
     },
     title: {
       type: 'string',
@@ -1019,16 +1197,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('cre
       selector: '.card-body'
     }
   },
-
-  /**
-   * @see ./edit.js
-   */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
-
-  /**
-   * @see ./save.js
-   */
-  save: _save__WEBPACK_IMPORTED_MODULE_5__["default"]
+  edit: _gutenberg_faq_inner_gutenberg_faq_inner_edit__WEBPACK_IMPORTED_MODULE_6__["default"],
+  save: _gutenberg_faq_inner_gutenberg_faq_inner_save__WEBPACK_IMPORTED_MODULE_7__["default"]
 });
 
 /***/ }),
@@ -1082,32 +1252,7 @@ function save(props) {
     className: 'accordion',
     id: 'block-' + blockId
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "card"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "card-header",
-    id: "headingOne"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "mb-0"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    className: "btn btn-link btn-block text-left bg-primary text-white",
-    type: "button",
-    "data-toggle": "collapse",
-    "data-target": "#collapseOne",
-    "aria-expanded": "true",
-    "aria-controls": "collapseOne"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"].Content, {
-    value: attributes.title
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    id: "collapseOne",
-    className: "collapse",
-    "aria-labelledby": "headingOne",
-    "data-parent": '#block-' + blockId
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "card-body"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"].Content, {
-    value: attributes.content
-  })))));
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null));
 }
 
 /***/ }),

@@ -28,6 +28,8 @@ import 'bootstrap/js/dist/collapse';
  */
 import Edit from './edit';
 import save from './save';
+import GutenbergFaqInnerEdit from './gutenberg-faq-inner/gutenberg-faq-inner-edit';
+import GutenbergFaqInnerSave from './gutenberg-faq-inner/gutenberg-faq-inner-save';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -78,6 +80,36 @@ registerBlockType( 'create-block/gutenberg-faq', {
 	attributes: {
 		blockId: {
 			type: 'number'
+		}
+	},
+
+	/**
+	 * @see ./edit.js
+	 */
+	edit: Edit,
+
+	/**
+	 * @see ./save.js
+	 */
+	save,
+} );
+
+registerBlockType( 'create-block/gutenberg-faq-inner', {
+	apiVersion: 2,
+	title: __( 'Gutenberg Faq Panel', 'gutenberg-faq' ),
+	description: __(
+		'Faq inner module',
+		'gutenberg-faq'
+	),
+	parent: [ 'create-block/gutenberg-faq' ],
+	icon: 'smiley',
+	supports: {
+		// Removes support for an HTML mode.
+		html: false,
+	},
+	attributes: {
+		innerBlockId: {
+			type: 'number'
 		},
 		title: {
 			type: 'string',
@@ -92,14 +124,6 @@ registerBlockType( 'create-block/gutenberg-faq', {
 			selector: '.card-body',
 		},
 	},
-
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
-
-	/**
-	 * @see ./save.js
-	 */
-	save,
+	edit: GutenbergFaqInnerEdit,
+	save: GutenbergFaqInnerSave,
 } );
