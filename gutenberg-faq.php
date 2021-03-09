@@ -27,7 +27,7 @@ function create_block_gutenberg_faq_block_init() {
 		);
 	}
 	$index_js     = 'build/index.js';
-	$script_asset = require( $script_asset_path );
+	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'create-block-gutenberg-faq-block-editor',
 		plugins_url( $index_js, __FILE__ ),
@@ -35,6 +35,13 @@ function create_block_gutenberg_faq_block_init() {
 		$script_asset['version']
 	);
 	wp_set_script_translations( 'create-block-gutenberg-faq-block-editor', 'gutenberg-faq' );
+
+	wp_register_script(
+		'create-block-gutenberg-faq-block',
+		'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js',
+		array(),
+		$script_asset['version']
+	);
 
 	$editor_css = 'build/index.css';
 	wp_register_style(
@@ -58,6 +65,7 @@ function create_block_gutenberg_faq_block_init() {
 			'editor_script' => 'create-block-gutenberg-faq-block-editor',
 			'editor_style'  => 'create-block-gutenberg-faq-block-editor',
 			'style'         => 'create-block-gutenberg-faq-block',
+			'script'        => 'create-block-gutenberg-faq-block',
 		)
 	);
 }

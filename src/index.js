@@ -21,6 +21,8 @@ import { __ } from '@wordpress/i18n';
  */
 import './style.scss';
 
+import 'bootstrap/js/dist/collapse';
+
 /**
  * Internal dependencies
  */
@@ -71,6 +73,24 @@ registerBlockType( 'create-block/gutenberg-faq', {
 	supports: {
 		// Removes support for an HTML mode.
 		html: false,
+	},
+
+	attributes: {
+		blockId: {
+			type: 'number'
+		},
+		title: {
+			type: 'string',
+			source: 'html',
+			selector: 'button.btn-link',
+			default: '',
+		},
+		content: {
+			type: 'string',
+			source: 'html',
+			multiline: 'p',
+			selector: '.card-body',
+		},
 	},
 
 	/**
